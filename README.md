@@ -7,7 +7,7 @@ Code for 'Mitigating Metropolitan Carbon Emissions with Eco-driving at Scale' pu
 2. Create a conda env or venv with python 3.7
 3. Install dependencies `pip install -r requirements.txt`
 
-## Run Instructions (local)
+## Run Instructions
 `<dir>` is where all the training artifacts will be stored and/or the checkpoints will be retrieved (to evaluate or restart the training). Will be created if it doesn't exist.
 
 If you haven't set the `WANDB_API_KEY` env var (see below), set `WANDB_MODE` to `offline`.
