@@ -13,18 +13,17 @@ if __name__ == '__main__':
     parser.add_argument('--kwargs', default='{}', help='args to be added to the config')
     parser.add_argument('--task_context_kwargs', default='{}', help='args to be added to the task_context')
     args = parser.parse_args()
-    
-    throughput_threshold = 1.00
 
     task = PathTaskContext(**{
         'single_approach':True,
-        'dir':Path('/home/gridsan/vindula/greenwave/no-stop/dataset/los-angeles/'),
+        'dir':Path(args.dir),
         'penetration_rate':0.0,
-        'aadt_conversion_factor':0.055 * throughput_threshold,  #0.055
+        'aadt_conversion_factor':0.055,
         **eval(args.task_context_kwargs)
     })
     peak_or_off_peak = 'peak' if task.aadt_conversion_factor == 0.084 * throughput_threshold else 'off-peak'
 
+    # Use this configuration if you want to define intersections programatically.
     # task = NetGenTaskContext(
     #     base_id=[42],
     #     penetration_rate=[0.1],
@@ -44,49 +43,48 @@ if __name__ == '__main__':
     # )
 
     # training config
-    # config = Config(
-    #     run_mode='train',
-    #     task_context=task,
-    #     working_dir=Path(args.dir),
-
-    #     wandb_proj='greenwave_final_models',
-    #     visualize_sumo=False,
-        
-    #     stop_penalty=35,
-    #     emission_penalty=3,
-    #     fleet_reward_ratio=0.0,
-        
-    #     moves_emissions_models=['68_46'], #'44_74', '44_64', '30_79'
-    # )
-
-    moves_emissions_models_config=['54_72',]
-
-    moves_emissions_models_conditions_config=[REGULAR for _ in range(len(moves_emissions_models_config))]
-    
-    # evaluation config
     config = Config(
-        trajectories_output=False,
-        run_mode='full_eval',
+        run_mode='train',
         task_context=task,
         working_dir=Path(args.dir),
 
-        enable_wandb=False,
+        wandb_proj='greenwave_final_models',
         visualize_sumo=False,
         
         stop_penalty=35,
         emission_penalty=3,
         fleet_reward_ratio=0.0,
         
-        episode_to_eval=5000,
-        
-        moves_emissions_models=moves_emissions_models_config,
-        moves_emissions_models_conditions=moves_emissions_models_conditions_config,
-        
-        full_eval_run_baselines=False,
-        n_steps=3,
-        report_uncontrolled_region_metrics=True,
-        csv_output_custom_name=(str(task.dir)).split('/')[-1] + '_' + peak_or_off_peak + '_' + str(throughput_threshold),
+        moves_emissions_models=['68_46'], 
     )
+
+    # moves_emissions_models_config=['54_72',]
+    # moves_emissions_models_conditions_config=[REGULAR for _ in range(len(moves_emissions_models_config))]
+    
+    # evaluation config
+    # config = Config(
+    #     trajectories_output=False,
+    #     run_mode='full_eval',
+    #     task_context=task,
+    #     working_dir=Path(args.dir),
+
+    #     enable_wandb=False,
+    #     visualize_sumo=False,
+        
+    #     stop_penalty=35,
+    #     emission_penalty=3,
+    #     fleet_reward_ratio=0.0,
+        
+    #     episode_to_eval=5000,
+        
+    #     moves_emissions_models=moves_emissions_models_config,
+    #     moves_emissions_models_conditions=moves_emissions_models_conditions_config,
+        
+    #     full_eval_run_baselines=False,
+    #     n_steps=3,
+    #     report_uncontrolled_region_metrics=True,
+    #     csv_output_custom_name=(str(task.dir)).split('/')[-1] + '_' + peak_or_off_peak + '_' + str(throughput_threshold),
+    # )
 
     # sumo visualization config
     # config = Config(
@@ -105,7 +103,7 @@ if __name__ == '__main__':
     #     parallelization_size=1,
     #     moves_emissions_models=['44_64'],
     # )
-    assert len(config.moves_emissions_models) == len(config.moves_emissions_models_conditions), "The evaluations conditions does not have the same dimensions"
+    assert len(config.moves_emissions_models) == len(config.moves_emissions_models_conditions), "The evaluations conditions do not have the same dimensions"
     config = config.update({**eval(args.kwargs)})
 
     main_exp = MainExperiment(config)
