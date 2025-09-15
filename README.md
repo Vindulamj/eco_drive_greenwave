@@ -111,7 +111,6 @@ If you are using this codebase, please consider citing the following paper.
 ###  Troubleshooting
 
 #### If you get `OSError: AF_UNIX path length cannot exceed 107 bytes:`
-This might happen for batch jobs on Supercloud.
 
 #### Solution
 
