@@ -5,6 +5,6 @@ Code for 'Mitigating Metropolitan Carbon Emissions with Eco-driving at Scale' pu
 ## How to run
 
 1. Run the main.py
-'''
+```   
 python main.py
-''''
+```
