@@ -112,8 +112,6 @@ If you are using this codebase, please consider citing the following paper.
 
 #### If you get `OSError: AF_UNIX path length cannot exceed 107 bytes:`
 
-#### Solution
-
 The best way to solve it is to (okay you usually should NEVER do that) modify line 183 of `.conda/envs/no-stop/lib/python3.7/site-packages/ray/node.py`
 (the local installation of ray !) into this : `date_str = datetime.datetime.today().strftime("%H%M%S%f")`.
 
