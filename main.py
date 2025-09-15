@@ -16,14 +16,14 @@ if __name__ == '__main__':
 
     task = PathTaskContext(**{
         'single_approach':True,
-        'dir':Path(args.dir),
+        'dir':Path('dataset/boston'),
         'penetration_rate':0.0,
         'aadt_conversion_factor':0.055,
         **eval(args.task_context_kwargs)
     })
     peak_or_off_peak = 'peak' if task.aadt_conversion_factor == 0.084 * throughput_threshold else 'off-peak'
 
-    # Use this configuration if you want to define intersections programatically.
+    # Use this configuration if you want to define intersections programmatically.
     # task = NetGenTaskContext(
     #     base_id=[42],
     #     penetration_rate=[0.1],
