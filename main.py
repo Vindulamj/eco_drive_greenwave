@@ -7,7 +7,7 @@ from experiment import MainExperiment
 from containers.task_context import ContinuousSelector, NetGenTaskContext, PathTaskContext
 
 if __name__ == '__main__':
-    # set the number of workers here
+
     parser = argparse.ArgumentParser(description='Model arguments')
     parser.add_argument('--dir', default='wd/new_exp', type=str, help='Result directory')
     parser.add_argument('--kwargs', default='{}', help='args to be added to the config')
@@ -16,12 +16,12 @@ if __name__ == '__main__':
 
     task = PathTaskContext(**{
         'single_approach':True,
-        'dir':Path('dataset/boston'),
+        'dir':Path('dataset/salt-lake-city'),
         'penetration_rate':0.0,
         'aadt_conversion_factor':0.055,
         **eval(args.task_context_kwargs)
     })
-    peak_or_off_peak = 'peak' if task.aadt_conversion_factor == 0.084 * throughput_threshold else 'off-peak'
+    peak_or_off_peak = 'peak' if task.aadt_conversion_factor == 0.084 else 'off-peak'
 
     # Use this configuration if you want to define intersections programmatically.
     # task = NetGenTaskContext(
