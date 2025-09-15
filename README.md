@@ -85,8 +85,7 @@ task = PathTaskContext(
 
 The dataset used in the paper is available [here](https://drive.google.com/drive/folders/1y3W83MPfnt9mSFGbg8L9TLHTXElXvcHs). If you are using this dataset, please consider citing the following paper.
 
-```
-bibtex
+```bibtex
 @article{intersectionzoo2025,
   title   = {IntersectionZoo: Eco-driving for Benchmarking Multi-Agent Contextual Reinforcement Learning, },
   author  = {V. Jayawardana, B. Freydt, A. Qu, C. Hickert, Z. Yan, C. Wu},
@@ -123,4 +122,4 @@ Basically this changes the name of ray sessions into a shorter name.
 
 #### Anyhting else
 
-Please open a Github issue. 
+Please open a GitHub issue. 
